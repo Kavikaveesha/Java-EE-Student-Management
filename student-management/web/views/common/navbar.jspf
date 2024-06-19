@@ -1,0 +1,54 @@
+<%@page import="com.studentManagement.model.Admin"%>
+<%
+    // Check if admin is logged in (using session attribute)
+    Admin loggedInAdmin = (Admin) session.getAttribute("loggedInAdmin");
+%>
+<%@page import="com.studentManagement.utill.assetsUrl"%>
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <img src="<%=assetsUrl.giveUrl(request, "images/Student.png")%>" alt="Student Management" class="img-fluid" style="width: 4%;height: 4%">
+        <a class="navbar-brand" href="#">Student Management</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <% if (loggedInAdmin != null) {%>
+                <li class="nav-item dropdown">
+                    <a class="nav-link"
+                       data-bs-toggle="dropdown" aria-expanded="false"><%= loggedInAdmin.getAdminName()%></a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="logout">Logout</a></li> </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/manage-admin">Admins</a>
+                </li>
+                <% } else {
+                        // Redirect to login if not logged in
+                        response.sendRedirect("login");
+                    }%>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Kavindu Kaveesha
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${pageContext.request.contextPath}/manage-admin">Admins</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
